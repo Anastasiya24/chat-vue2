@@ -32,6 +32,7 @@
 import Modal from '../components/Modal';
 import ProfileSettings from '../components/ProfileSettings';
 import chatSvg from '../assets/icons/chat.svg';
+import { EDIT_USER_NAME } from '../store/actions.type';
 
 export default {
   name: 'ChatContainer',
@@ -59,8 +60,7 @@ export default {
       this.isOpenAccountModal = !currentState;
     },
     onChangeUserName(value) {
-      //TODO SAVE NAME
-      localStorage.setItem('nickName', value);
+      this.$store.dispatch(EDIT_USER_NAME, value);
       this.setOpenAccountModal();
     },
   },

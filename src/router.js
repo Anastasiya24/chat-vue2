@@ -1,5 +1,6 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
+import getUserId from './services/getUserId';
 import ChatPage from './pages/ChatPage.vue';
 import GreetingPage from './pages/GreetingPage.vue';
 import NotFoundPage from './pages/NotFoundPage.vue';
@@ -36,8 +37,7 @@ const router = new VueRouter({
 });
 
 router.beforeEach((to, from, next) => {
-  // TODO GET NAME
-  const isUserExist = localStorage.getItem('nickName');
+  const isUserExist = getUserId();
   if (to.name !== 'Greeting' && !isUserExist) next({ name: 'Greeting' });
   if (to.name === 'Greeting' && isUserExist) next({ name: 'Chat' });
   else next();

@@ -12,6 +12,7 @@
 </template>
 
 <script>
+import { EDIT_USER_NAME } from '../store/actions.type';
 import Input from '../components/Input.vue';
 import Button from '../components/Button.vue';
 
@@ -30,8 +31,7 @@ export default {
   },
   methods: {
     onSaveNickName() {
-      localStorage.setItem('nickName', this.nickName);
-      this.$router.push('/');
+      this.$store.dispatch(EDIT_USER_NAME, this.nickName);
     },
   },
 };

@@ -28,6 +28,9 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex';
+import { GET_USER_NAME } from '../store/actions.type';
+
 import ChatContainer from '../layouts/ChatContainer';
 import Message from '../components/Message';
 import Textarea from '../components/Textarea';
@@ -39,7 +42,6 @@ export default {
   data() {
     return {
       sendSvg: sendSvg,
-      name: 'Nastya',
       newMessageTest: '',
       // TODO GET MESSAGES
       messages: [
@@ -64,6 +66,7 @@ export default {
     isValidMessage: function () {
       return this.newMessageTest && this.newMessageTest?.trim();
     },
+    ...mapGetters(['name']),
   },
   methods: {
     sendMessage() {
@@ -72,6 +75,9 @@ export default {
       // TODO : clean msg
       this.newMessageTest = '';
     },
+  },
+  mounted() {
+    this.$store.dispatch(GET_USER_NAME);
   },
 };
 </script>
