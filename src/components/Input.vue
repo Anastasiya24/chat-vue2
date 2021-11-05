@@ -1,5 +1,5 @@
 <template>
-  <div class="wrapper">
+  <div class="input">
     <input
       type="text"
       v-model="model"
@@ -47,11 +47,11 @@ export default {
 </script>
 
 <style scoped>
-.wrapper {
+.input {
   position: relative;
 }
 
-input[type='text'] {
+.effect[type='text'] {
   width: 100%;
   box-sizing: border-box;
   letter-spacing: 1px;

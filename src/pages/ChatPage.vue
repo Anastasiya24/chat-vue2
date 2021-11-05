@@ -1,15 +1,77 @@
 <template>
-  <div class="chatContainer">
-      <div class="messages">messages</div>
-      <div class="footer">new messages</div>
-  </div>
+  <ChatContainer :name="name">
+    <div class="chatContainer">
+      <div class="messages">
+        <Message
+          v-for="message in messages"
+          :key="message._id"
+          :sender="name"
+          :time="message.time"
+          :text="message.text"
+        />
+      </div>
+      <div class="textareaFooter">
+        <Textarea
+          v-model="newMessageTest"
+          @onSave="sendMessage"
+          placeholder="Your message"
+        />
+        <img
+          v-if="isValidMessage"
+          :src="sendSvg"
+          class="sendIcon"
+          @click="sendMessage"
+        />
+      </div>
+    </div>
+  </ChatContainer>
 </template>
 
 <script>
+import ChatContainer from '../layouts/ChatContainer';
+import Message from '../components/Message';
+import Textarea from '../components/Textarea';
+import sendSvg from '../assets/icons/send.svg';
+
 export default {
   name: 'ChatPage',
-  props: {
-    msg: String,
+  components: { ChatContainer, Message, Textarea },
+  data() {
+    return {
+      sendSvg: sendSvg,
+      name: 'Nastya',
+      newMessageTest: '',
+      // TODO GET MESSAGES
+      messages: [
+        {
+          _id: '614362325d69f78bfe860c1a',
+          senderId: '6143622e5d69f78bfe860c17',
+          text: 'Hi',
+          time: '11:26',
+          __v: 0,
+        },
+        {
+          _id: '614362365d69f78bfe860c1c',
+          senderId: '6143622e5d69f78bfe860c17',
+          text: 'Testing.',
+          time: '11:26',
+          __v: 0,
+        },
+      ],
+    };
+  },
+  computed: {
+    isValidMessage: function () {
+      return this.newMessageTest && this.newMessageTest?.trim();
+    },
+  },
+  methods: {
+    sendMessage() {
+      console.log('this.newMessageTest', this.newMessageTest);
+      // TODO : save msg
+      // TODO : clean msg
+      this.newMessageTest = '';
+    },
   },
 };
 </script>
@@ -20,10 +82,10 @@ export default {
 }
 
 .messages {
-  min-height: calc(100vh - 248px);
+  min-height: calc(100vh - 245px);
 }
 
-.footer {
+.textareaFooter {
   display: flex;
 }
 

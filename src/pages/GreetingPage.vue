@@ -1,5 +1,5 @@
 <template>
-  <div class="wrapper">
+  <div class="block">
     <h1 class="title">Nice to meet you</h1>
     <p class="subtitle">What is your name?</p>
     <Input v-model="nickName" placeholder="Nickname" @onSave="onSaveNickName" />
@@ -7,7 +7,6 @@
       text="Chat!"
       @onClick="onSaveNickName"
       :invalid="isInvalidNickName"
-      :style="{ 'margin-top': '20px' }"
     />
   </div>
 </template>
@@ -32,18 +31,24 @@ export default {
   methods: {
     onSaveNickName() {
       localStorage.setItem('nickName', this.nickName);
-      this.$router.push('/')
+      this.$router.push('/');
     },
   },
 };
 </script>
 
 <style scoped>
-.wrapper {
+.block {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  margin-top: 80px;
+}
+
+.block >>> .button {
+  margin-top: 20px;
+  padding: 15px 25px;
 }
 
 .title {

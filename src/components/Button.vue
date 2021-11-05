@@ -16,7 +16,7 @@ export default {
   },
   computed: {
     buttonClass() {
-      return `wrapper ${this.invalid && 'invalid'}`;
+      return `button ${this.invalid && 'invalid'}`;
     },
   },
   methods: {
@@ -28,7 +28,7 @@ export default {
 </script>
 
 <style scoped>
-.wrapper {
+.button {
   cursor: pointer;
   background-color: var(--primary-color);
   border-radius: 4px;
@@ -39,16 +39,16 @@ export default {
   text-align: center;
 }
 
-.wrapper p {
+.button p {
   font-family: 'NotoSansTC Bold';
 }
 
-.wrapper:hover {
+.button:hover {
   background-color: var(--dark-color);
   transition: 300ms linear;
 }
 
-.wrapper:hover p {
+.button:hover p {
   text-shadow: 3px -2px 0px var(--extra-dark-color);
   transition: 500ms linear;
 }

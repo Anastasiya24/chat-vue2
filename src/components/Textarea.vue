@@ -1,5 +1,10 @@
 <template>
-  <textarea v-model="value" class="textarea" placeholder="placeholder" />
+  <textarea
+    v-model="model"
+    :class="$style.textarea"
+    :placeholder="placeholder"
+    v-on:keyup.enter="onKeyPress"
+  />
 </template>
 
 <script>
@@ -14,13 +19,29 @@ export default {
       type: String,
       default: '',
     },
-    onChange: Function,
-    handleEnterKey: Function,
+  },
+  data() {
+    return {
+      model: this.value,
+    };
+  },
+  methods: {
+    onKeyPress() {
+      if (this.model?.trim()) {
+        this.$emit('onSave', this.value);
+        this.model = '';
+      }
+    },
+  },
+  watch: {
+    model(currentValue) {
+      this.$emit('input', currentValue);
+    },
   },
 };
 </script>
 
-<style scoped>
+<style module>
 .textarea {
   box-sizing: border-box;
   height: 80px;
