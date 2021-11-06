@@ -32,6 +32,9 @@ export default {
         this.model = '';
       }
     },
+    onCleanTextarea() {
+      this.model = '';
+    },
   },
   watch: {
     model(currentValue) {

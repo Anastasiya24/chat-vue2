@@ -13,6 +13,7 @@
       <div class="textareaFooter">
         <Textarea
           v-model="newMessageTest"
+          ref="textarea"
           @onSave="sendMessage"
           placeholder="Your message"
         />
@@ -29,7 +30,7 @@
 
 <script>
 import { mapGetters } from 'vuex';
-import { GET_USER_NAME } from '../store/actions.type';
+import { GET_USER_NAME, GET_MESSAGES_LIST, ADD_NEW_MESSAGE } from '../store/actions.type';
 
 import ChatContainer from '../layouts/ChatContainer';
 import Message from '../components/Message';
@@ -43,41 +44,25 @@ export default {
     return {
       sendSvg: sendSvg,
       newMessageTest: '',
-      // TODO GET MESSAGES
-      messages: [
-        {
-          _id: '614362325d69f78bfe860c1a',
-          senderId: '6143622e5d69f78bfe860c17',
-          text: 'Hi',
-          time: '11:26',
-          __v: 0,
-        },
-        {
-          _id: '614362365d69f78bfe860c1c',
-          senderId: '6143622e5d69f78bfe860c17',
-          text: 'Testing.',
-          time: '11:26',
-          __v: 0,
-        },
-      ],
     };
   },
   computed: {
     isValidMessage: function () {
       return this.newMessageTest && this.newMessageTest?.trim();
     },
-    ...mapGetters(['name']),
+    ...mapGetters(['name', 'messages']),
   },
   methods: {
     sendMessage() {
-      console.log('this.newMessageTest', this.newMessageTest);
-      // TODO : save msg
-      // TODO : clean msg
+      this.$store.dispatch(ADD_NEW_MESSAGE, this.newMessageTest);
       this.newMessageTest = '';
+      // clean child textarea
+      this.$refs.textarea.onCleanTextarea();
     },
   },
   mounted() {
     this.$store.dispatch(GET_USER_NAME);
+    this.$store.dispatch(GET_MESSAGES_LIST);
   },
 };
 </script>
